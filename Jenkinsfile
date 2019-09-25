@@ -16,11 +16,9 @@ pipeline {
       post {
         always {
             echo 'always'
-            setBuildStatus("Format", "Passed Format", "success");
         }
         failure {
             echo 'failure'
-            setBuildStatus("Format", "Failure Format", "failure");
         }
       }
     }
