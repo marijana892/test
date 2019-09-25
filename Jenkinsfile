@@ -1,3 +1,7 @@
+void setBuildStatus(String context, String message, String state) {
+}
+
+
 pipeline {
   agent {
     node {
