@@ -4,9 +4,9 @@ void setBuildStatus(String context, String message, String state) {
 
 pipeline {
   agent {
-    node {
+    //node {
       //label 'func && linux'
-    }
+    //}
   }
 
   options { disableConcurrentBuilds() }
