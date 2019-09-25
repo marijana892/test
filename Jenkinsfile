@@ -14,8 +14,7 @@ pipeline {
   stages {
     stage('Format') {
       steps {
-        sh '''echo Format
-'''
+        sh '''echo Format'''
       }
       post {
         always {
