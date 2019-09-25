@@ -3,11 +3,11 @@ void setBuildStatus(String context, String message, String state) {
 
 
 pipeline {
-  #agent {
-  #  node {
-  #    label 'func && linux'
-  #  }
-  #}
+  //agent {
+  //  node {
+  //    label 'func && linux'
+  //  }
+  //}
 
   options { disableConcurrentBuilds() }
 
