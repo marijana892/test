@@ -5,7 +5,7 @@ void setBuildStatus(String context, String message, String state) {
 pipeline {
   agent {
     none {
-      //label 'func && linux'
+      label 'func && linux'
     }
   }
 
