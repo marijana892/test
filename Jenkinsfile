@@ -9,7 +9,7 @@ pipeline {
             steps {
                 echo "hello world"
                 echo "$author $authorDisplayName and $authorEmail"
-                echo "SSH user is $SSH_CREDS_USR"'
+                echo "SSH user is $SSH_CREDS_USR"
             }    
         }
     }
