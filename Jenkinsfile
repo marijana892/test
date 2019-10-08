@@ -3,30 +3,12 @@ void setBuildStatus(String context, String message, String state) {
 
 
 pipeline {
-  agent {
-    none {
-      label 'func && linux'
-    }
-  }
-
-  options { disableConcurrentBuilds() }
-
-  stages {
-    stage('Format') {
-      steps {
-        sh '''echo Format'''
-      }
-      post {
-        always {
-            echo 'always'
-            setBuildStatus("Format", "Passed Format", "success");
+    agent any
+    stages {
+        stage('Example') {
+            steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            }
         }
-        failure {
-            echo 'failure'
-            setBuildStatus("Format", "Failure Format", "failure");
-        }
-      }
     }
-  }
 }
-
