@@ -1,14 +1,14 @@
 void setBuildStatus(String context, String message, String state) {
 }
 
-
 pipeline {
-    agent any
+    agent none
     stages {
-        stage('Example') {
+
+        stage('Build2') {
             steps {
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            }
+               echo "hello world"
+            }    
         }
     }
 }
