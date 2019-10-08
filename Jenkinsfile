@@ -8,8 +8,10 @@ pipeline {
         stage('Build2') {
             steps {
                 echo "hello world"
-                echo "$author $authorDisplayName and $authorEmail"
+                echo "author authorDisplayName and authorEmail"
+                echo "hello world1"
                 echo "SSH user is $SSH_CREDS_USR"
+                echo "hello world"
             }    
         }
     }
