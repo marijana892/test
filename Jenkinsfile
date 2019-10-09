@@ -7,15 +7,25 @@ void setBuildEmail() {
 }
 
 pipeline {
-    agent none
-    stages {
-
-        stage('Build2') {
-            steps {
-                echo "hello world"
-                sh '''echo hello
-'''
-            }    
-        }
+  agent {
+    label 'whatever'
+  }
+  stages {
+    stage('build') {
+      steps {
+        sh "/bin/echo"
+      }
     }
+    stage('test in docker') {
+      agent {
+        docker {
+          image 'ubuntu:18.04'
+          reuseNode true
+        }
+      }
+      steps {
+        sh "/bin/echo"
+      }
+    }
+  }
 }
