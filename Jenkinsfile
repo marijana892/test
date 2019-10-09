@@ -13,7 +13,8 @@ pipeline {
         stage('Build2') {
             steps {
                 echo "hello world"
-                setBuildEmail();
+                sh '''echo hello
+'''
             }    
         }
     }
