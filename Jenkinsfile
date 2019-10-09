@@ -8,7 +8,7 @@ void setBuildEmail() {
 
 pipeline {
   agent {
-    label 'whatever'
+    label 'localhost'
   }
   stages {
     stage('build') {
