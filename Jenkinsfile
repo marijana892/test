@@ -23,7 +23,7 @@ pipeline {
       emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS', 
                body: '''${SCRIPT, template="groovy-html.template"}''', 
                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
-               to:'sh(script: "git --no-pager show -s --format='%ae'", returnStdout: true).trim()'
+               to:'marijana.leaba@gmail.com'
                )
     }
   }
