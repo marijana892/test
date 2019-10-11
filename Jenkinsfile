@@ -1,4 +1,5 @@
 def myVariable = "foo"
+def TMP_GIT_COMMITTER_EMAIL;
 
 void setBuildEmail() {
     myVariable = sh script: "git --no-pager show -s --format='%ae'", returnStatus: true
@@ -23,7 +24,8 @@ pipeline {
   post {
         always {
             echo 'I will always say Hello again!'
-            //echo "${CHANGE_AUTHOR_EMAIL}"
+            echo myVariable
+            echo TMP_GIT_COMMITTER_EMAIL
             //echo '${CHANGE_AUTHOR_EMAIL}'
             //emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS', 
               //       body: '''${SCRIPT, template="groovy-html.template"}''', 
