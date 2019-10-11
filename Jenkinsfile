@@ -16,16 +16,4 @@ pipeline {
         sh "/bin/echo"
       }
     }
-    stage('test in docker') {
-      agent {
-        docker {
-          image 'ubuntu:18.04'
-          reuseNode true
-        }
-      }
-      steps {
-        sh "/bin/echo"
-      }
-    }
-  }
 }
