@@ -1,12 +1,7 @@
-def myVariable = "foo"
-def TMP_GIT_COMMITTER_EMAIL;
+
 
 void setBuildEmail() {
-    myVariable = sh script: "git --no-pager show -s --format='%ae'", returnStatus: true
-    TMP_GIT_COMMITTER_EMAIL = sh(
-      script: "git --no-pager show -s --format='%ae'",
-      returnStdout: true
-    ).trim()
+    
 }
 
 pipeline {
@@ -23,8 +18,14 @@ pipeline {
   }
   post {
         always {
+            def myVariable = sh script: "git --no-pager show -s --format='%ae'", returnStatus: true
             echo 'I will always say Hello again!'
             echo myVariable
+            
+            def TMP_GIT_COMMITTER_EMAIL = sh(
+      script: "git --no-pager show -s --format='%ae'",
+      returnStdout: true
+    ).trim()
             echo TMP_GIT_COMMITTER_EMAIL
             //echo '${CHANGE_AUTHOR_EMAIL}'
             //emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS', 
