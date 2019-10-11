@@ -1,9 +1,9 @@
-string setBuildEmail() {
+void setBuildEmail() {
     TMP_GIT_COMMITTER_EMAIL = sh(
       script: "git --no-pager show -s --format='%ae'",
       returnStdout: true
     ).trim()
-    return $TMP_GIT_COMMITTER_EMAIL
+    echo $TMP_GIT_COMMITTER_EMAIL
 }
 
 pipeline {
