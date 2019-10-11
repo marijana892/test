@@ -14,6 +14,7 @@ pipeline {
     stage('build') {
       steps {
         sh "/bin/echo"
+        setBuildEmail();
       }
     }
   }
