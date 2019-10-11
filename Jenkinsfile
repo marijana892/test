@@ -1,9 +1,9 @@
-void setBuildEmail() {
+string setBuildEmail() {
     TMP_GIT_COMMITTER_EMAIL = sh(
       script: "git --no-pager show -s --format='%ae'",
       returnStdout: true
     ).trim()
-    echo "TMP_GIT_COMMITTER_EMAIL: $TMP_GIT_COMMITTER_EMAIL"
+    return $TMP_GIT_COMMITTER_EMAIL
 }
 
 pipeline {
@@ -16,6 +16,15 @@ pipeline {
         sh "/bin/echo"
         setBuildEmail();
       }
+    }
+  }
+  post {
+    always {
+      emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS', 
+               body: '''${SCRIPT, template="groovy-html.template"}''', 
+               recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
+               to:'sh(script: "git --no-pager show -s --format='%ae'", returnStdout: true).trim()'
+               )
     }
   }
 }
