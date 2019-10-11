@@ -22,14 +22,12 @@ pipeline {
   post {
         always {
             echo 'I will always say Hello again!'
-            set +e
             
             emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS', 
                      body: '''${SCRIPT, template="groovy-html.template"}''', 
                      recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
                      to:'marijana.leaba@gmail.com')
-            
-            set -e
+
             
         }
     }
