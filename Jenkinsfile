@@ -5,7 +5,6 @@ void setBuildEmail() {
       script: "git --no-pager show -s --format='%ae'",
       returnStdout: true
     ).trim()
-    echo $TMP_GIT_COMMITTER_EMAIL
 }
 
 pipeline {
