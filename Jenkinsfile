@@ -20,7 +20,7 @@ pipeline {
         always {
             def myVariable = sh script: "git --no-pager show -s --format='%ae'", returnStatus: true
             echo 'I will always say Hello again!'
-            echo myVariable
+            echo "${myVariable}"
             
             def TMP_GIT_COMMITTER_EMAIL = sh(
       script: "git --no-pager show -s --format='%ae'",
