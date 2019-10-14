@@ -1,4 +1,18 @@
 
+def getEmail() {
+    def m = env.GIT_AUTHOR_EMAIL
+    if (m) {
+        def result = sh(
+            script: """#!/bin/bash
+            git --no-pager show -s --format='%ae'
+            """,
+            returnStdout: true).trim();
+        echo result
+        return result.trim()
+    } else {
+        return env.GIT_AUTHOR_EMAIL
+    }
+}
 
 void setBuildEmail() {
     
@@ -13,6 +27,7 @@ pipeline {
       steps {
         sh "/bin/echo"
         setBuildEmail();
+          getEmail();
       }
     }
   }
