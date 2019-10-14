@@ -2,6 +2,7 @@
 def getEmail() {
     def m = env.GIT_AUTHOR_EMAIL
     if (m) {
+        echo 'first if'
         def result = sh(
             script: """#!/bin/bash
             git --no-pager show -s --format='%ae'
@@ -10,6 +11,8 @@ def getEmail() {
         echo result
         return result.trim()
     } else {
+        echo 'first else'
+        echo "${env.GIT_AUTHOR_EMAIL}"
         return env.GIT_AUTHOR_EMAIL
     }
 }
