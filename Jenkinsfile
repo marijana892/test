@@ -21,6 +21,21 @@ void setBuildEmail() {
     
 }
 
+void setBuildStatus(String context, String message, String state) {
+    withCredentials([string(credentialsId: credentials('marvin-git-status-token'), variable: 'TOKEN')]) {
+        def url = "https://github.com/marijana892/test/statuses/" + getCommitHash().trim() +
+            "?access_token=$TOKEN"
+        echo url
+        sh """#!/bin/bash
+        set - x
+        curl \"${url}\" \
+                -H \"Content-Type: application/json\" \
+                -X POST \
+                -d \"{\\\"description\\\": \\\"$message\\\", \\\"state\\\": \\\"$state\\\", \\\"context\\\": \\\"$context\\\", \\\"target_url\\\": \\\"$BUILD_URL\\\"}\"
+        """
+    }
+}
+
 pipeline {
   agent {
     label 'linux'
