@@ -43,10 +43,13 @@ pipeline {
   stages {
     stage('build') {
       steps {
-          sh "/bin/echo"
-          setBuildEmail();
+          echo "B---->getEmail"
           getEmail();
+          echo "E---->getEmail"
+          
+          echo "B---->setBuildStatus"
           setBuildStatus()
+          echo "E---->setBuildStatus"
       }
     }
   }
