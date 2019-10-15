@@ -23,9 +23,8 @@ def changelist() {
     currentBuild.changeSets.each { set ->
         set.each { entry ->
             //changes += "${entry.commitId} by ${entry.author.fullName}\n"
-			def result = sh(script: """#!/bin/bash
-                                       git show ${entry.commitId} -s --format='%ae'""",
-                            returnStdout: true).trim();
+		echo "${entry.commitId} by ${entry.author.fullName}\n"
+			def result = sh(script: """git show ${entry.commitId} -s --format='%ae'""", returnStdout: true).trim();
 			changes += result
         }
     }
