@@ -17,8 +17,20 @@ def getEmail() {
     }
 }
 
-void setBuildEmail() {
-    
+@NonCPS  // Necessary to allow .each to work.
+def changelist() {
+    def changes = ""
+    currentBuild.changeSets.each { set ->
+        set.each { entry ->
+            //changes += "${entry.commitId} by ${entry.author.fullName}\n"
+			def result = sh(script: """#!/bin/bash
+                                       git show ${entry.commitId} -s --format='%ae'""",
+                            returnStdout: true).trim();
+			changes += result
+        }
+    }
+	echo changes
+    changes
 }
 
 void setBuildStatus(String context, String message, String state) {
@@ -43,13 +55,10 @@ pipeline {
   stages {
     stage('build') {
       steps {
-          echo "B---->getEmail"
-          getEmail();
-          echo "E---->getEmail"
           
-          echo "B---->setBuildStatus"
-          setBuildStatus()
-          echo "E---->setBuildStatus"
+          echo "B---->changelist"
+          changelist()
+          echo "E---->changelist"
       }
     }
   }
