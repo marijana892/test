@@ -47,6 +47,17 @@ void setBuildStatus(String context, String message, String state) {
     }
 }
 
+void postAndSendStatus(String context, String message) {
+      post {
+        success {
+          echo 'success'
+        }
+        failure {
+          echo 'failure'
+        }
+      }
+}
+
 pipeline {
   agent {
     label 'linux'
@@ -59,7 +70,10 @@ pipeline {
           changelist()
           echo "E---->changelist"
       }
+      postAndSendStatus("Format_1", "Passed Format_1")
     }
+	  
+	  
   }
   post {
         always {
