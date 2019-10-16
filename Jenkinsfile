@@ -17,6 +17,9 @@ def changelist() {
 			changes += " "
         }
     }
+	echo "B---------->changelist"
+	echo changes
+	echo "E---------->changelist"
     return changes
 }
 
