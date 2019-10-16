@@ -48,14 +48,14 @@ void setBuildStatus(String context, String message, String state) {
 }
 
 void postAndSendStatus(String context, String message) {
-      post {
+      //post {
         success {
           echo 'success'
         }
         failure {
           echo 'failure'
         }
-      }
+      //}
 }
 
 pipeline {
@@ -70,7 +70,9 @@ pipeline {
           changelist()
           echo "E---->changelist"
       }
-      postAndSendStatus("Format_1", "Passed Format_1")
+      post {
+        postAndSendStatus("Format_1", "Passed Format_1")
+      }
     }
 	  
 	  
