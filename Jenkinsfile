@@ -1,25 +1,29 @@
 def getMailByCommitId(String commitId) {
+  echo "log getMailByCommitId 1\n"
     def result = sh(
             script: """#!/bin/bash
             set - x
             git show ${commitId} -s --format='%ae'
 """,
             returnStdout: true).trim();
-        return result.trim()
+   echo "log getMailByCommitId 2\n"
+  return result;
 }
-
-def changelist() {
+def getMailsFromCurrentBuild() {
     def changes = ""
+    def commitIdtmp = ""
     currentBuild.changeSets.each { set ->
         set.each { entry ->
             echo "${entry.commitId} by ${entry.author.fullName}\n"
-			changes += getMailByCommitId(entry.commitId)
-			changes += " "
+            echo "----------------------------------1"
+            commitIdtmp = "${entry.commitId}"
+            echo "----------------------------------2"
+            echo commitIdtmp
+            echo "----------------------------------3"
+            getMailByCommitId(commitIdtmp)
+            echo "----------------------------------4"
         }
     }
-	echo "B---------->changelist"
-	echo changes
-	echo "E---------->changelist"
     return changes
 }
 
@@ -30,10 +34,9 @@ pipeline {
   stages {
     stage('build') {
       steps {
-          
-          echo "B---->changelist"
-          changelist()
-          echo "E---->changelist"
+          echo "B---->getMailsFromCurrentBuild"
+          getMailsFromCurrentBuild()
+          echo "E---->getMailsFromCurrentBuild"
       }
     }
 	  
@@ -42,13 +45,6 @@ pipeline {
   post {
         always {
             echo 'I will always say Hello again!'
-
-            //emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS', 
-              //       body: '''${SCRIPT, template="groovy-html.template"}''', 
-                //     recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
-                  //   to:'$CHANGE_AUTHOR_EMAIL')
-
-            
         }
     }
 }
