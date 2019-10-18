@@ -1,8 +1,9 @@
 def getMailByCommitId(String commitId) {
   echo "log getMailByCommitId 1\n"
+  echo commitId
+  echo "${commitId}"
     def result = sh(
             script: """#!/bin/bash
-            set - x
             git show ${commitId} -s --format='%ae'
 """,
             returnStdout: true).trim();
