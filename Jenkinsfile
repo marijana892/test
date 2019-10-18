@@ -1,15 +1,3 @@
-def getMailByCommitId(String commitId) {
-  echo "log getMailByCommitId 1\n"
-  echo commitId
-  echo "${commitId}"
-    def result = sh(
-            script: """#!/bin/bash
-            git show ${commitId} -s --format='%ae'
-""",
-            returnStdout: true).trim();
-   echo "log getMailByCommitId 2\n"
-  return result;
-}
 def getMailsFromCurrentBuild() {
     def changes = ""
     def commitIdtmp = ""
@@ -21,8 +9,10 @@ def getMailsFromCurrentBuild() {
             echo "----------------------------------2"
             echo commitIdtmp
             echo "----------------------------------3"
-            getMailByCommitId(commitIdtmp)
+	    commitIdtmp = sh(returnStdout: true, script: 'git show ${commitIdtmp} -s --format=\'%ae\'').trim()
             echo "----------------------------------4"
+	    echo commitIdtmp
+	    echo "----------------------------------5"
         }
     }
     return changes
