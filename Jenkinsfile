@@ -9,7 +9,8 @@ def getMailsFromCurrentBuild() {
             echo "----------------------------------2"
             echo commitIdtmp
             echo "----------------------------------3"
-	    commitIdtmp = sh(returnStdout: true, script: 'git show ${commitIdtmp} -s --format=\'%ae\'').trim()
+	    //commitIdtmp = sh(returnStdout: true, script: 'git show ${commitIdtmp} -s --format=\'%ae\'').trim()
+            commitIdtmp = sh(returnStdout: true, script: 'git show ${commitIdtmp} -s').trim()
             echo "----------------------------------4"
 	    echo commitIdtmp
 	    echo "----------------------------------5"
