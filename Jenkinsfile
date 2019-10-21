@@ -40,26 +40,17 @@ pipeline {
     post {
     always {
       script {
-		echo ${env.BRANCH_NAME}
-        if (${env.BRANCH_NAME} == 'master') {
-		  emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS',
-	               body: '''${SCRIPT, template="groovy-html.template"}''',
-			       recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-			       to:'marijana.leaba@googlemail.com')
-		  echo ${env.BRANCH_NAME}
+	      echo "${env.BRANCH_NAME}"
+                if ("${env.BRANCH_NAME}" == 'master') {
+		  echo "-----------------------master"
 		}
 		else if (env.BRANCH_NAME.startsWith('PR')) {
 		  echo "-----------------------PR"
-		  emailext(subject: '[Jenkins] $PROJECT_NAME | $BUILD_STATUS',
-	               body: '''${SCRIPT, template="groovy-html.template"}''',
-			       recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-			       to:getMailsFromCurrentBuild())
-		  echo ${env.BRANCH_NAME}
 		}
-        else {
-          echo "-----------------------what is this"
-        }
-	  }
+                else {
+                  echo "-----------------------what is this"
+                }
+      }
     }
   }
 }
