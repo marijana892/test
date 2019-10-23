@@ -27,10 +27,11 @@ pipeline {
   stages {
     stage('build') {
       steps {
+	  echo "1---->abortPreviousBuilds"
           sleep(time:3,unit:"SECONDS")
-          echo "B---->getMailsFromCurrentBuild"
-          getMailsFromCurrentBuild()
-          echo "E---->getMailsFromCurrentBuild"
+          echo "2---->abortPreviousBuilds"
+          abortPreviousBuilds()
+          echo "3---->abortPreviousBuilds"
       }
     }
 	  
