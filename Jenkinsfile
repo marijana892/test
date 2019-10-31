@@ -8,7 +8,7 @@ def getCommitSha() {
   return readFile(".git/current-commit").trim()
 }
 
-def updateGithubCommitStatus(build) {
+def updateGithubCommitStatus(messag) {
   // workaround https://issues.jenkins-ci.org/browse/JENKINS-38674
   repoUrl = getRepoURL()
   commitSha = getCommitSha()
@@ -21,8 +21,8 @@ def updateGithubCommitStatus(build) {
     statusResultSource: [
       $class: 'ConditionalStatusResultSource',
       results: [
-        [$class: 'BetterThanOrEqualBuildResult', result: 'SUCCESS', state: 'SUCCESS', message: build.description],
-        [$class: 'BetterThanOrEqualBuildResult', result: 'FAILURE', state: 'FAILURE', message: build.description],
+        [$class: 'BetterThanOrEqualBuildResult', result: 'SUCCESS', state: 'SUCCESS', message: 'build.description'],
+        [$class: 'BetterThanOrEqualBuildResult', result: 'FAILURE', state: 'FAILURE', message: 'build.description'],
         [$class: 'AnyBuildResult', state: 'FAILURE', message: 'Loophole']
       ]
     ]
@@ -41,13 +41,13 @@ pipeline {
       steps {
         echo "Shared"
       }
-    }
-    post {
-      success {
-        updateGithubCommitStatus("Gibraltar HW Sanity");
-      }
-      failure {
-        updateGithubCommitStatus("Gibraltar HW Sanity");
+      post {
+        success {
+          updateGithubCommitStatus("success");
+        }
+        failure {
+          updateGithubCommitStatus("failure");
+        }
       }
     }
   }
